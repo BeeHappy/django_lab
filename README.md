@@ -1,6 +1,7 @@
 # django_lab
 ![Screenshot](shot1.png "Screenshot")
 ![Screenshot](shot2.png "Screenshot")
+![Screenshot](shot25.png "Screenshot")
 ![Screenshot](shot3.png "Screenshot")
 
 Pull this repository by:
