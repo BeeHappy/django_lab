@@ -3,22 +3,34 @@
 	<!-- Project One -->
       <div class="row">
         <div class="col-md-2">
-          <a href="#">
+			<a href="/journals/journal/{{ journal.info.id}}/">
 			  <img class="img-fluid rounded mb-3 mb-md-0"
-			  src="{% if journal %}{{journal.logo.url}}{% endif %}" alt="" width="100%" height="100%">
+			  src="{% if journal.info %}{{journal.info.logo.url}}{% endif %}" alt="" width="100%" height="100%">
           </a>
         </div>
         <div class="col-md-10">
-			<h3>{% if journal %}{{ journal.name }}{% endif %}</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.
-		  {{ cart }}
-		  {{ price }}
-		  </p>
-          <a class="btn btn-primary" href="#">View Journal</a>
-		  {% if not journal.id in request.session %}
-		  <a class="btn btn-warning" href="add/{{ journal.id }}/">
-			  Subscribe (${{ journal.subscription_fee }})
-		  </a>
+				<a href="/journals/journal/{{ journal.info.id}}/">
+			<h3>{% if journal.info %}{{ journal.info.name }}{% endif %}</h3>
+				</a>
+				{% if journal.info %}
+				<p>{{ journal.info.short_description }} </p>
+			    {% endif %}
+				
+		  <!--<a class="btn btn-primary" href="#">View Journal</a> -->
+		  {% if not journal.in_cart %}
+		  <form action="{{ request.url }}" method="post">
+			  {% csrf_token %}
+			  <button class="btn btn-warning" type="submit" name="subscribe" value="{{ journal.info.id }}">
+			  Subscribe (${{ journal.info.subscription_fee }})
+			  </button>
+		  </form>
+		  {% else %}
+		  <form action="{{ request.url }}" method="post">
+			  {% csrf_token %}
+			  <button class="btn btn-danger" type="submit" name="cancel" value="{{ journal.info.id }}">
+			  Cancel (${{ journal.info.subscription_fee }})
+			  </button>
+		  </form>
 		  {% endif %}
         </div>
       </div>
